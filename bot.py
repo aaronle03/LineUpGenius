@@ -29,6 +29,10 @@ def run_discord_bot():
         username = str(message.author)
         user_message = str(message.content)
         channel = str(message.channel)
+        brim = 0
+        viper = 0
+        sova = 0
+        killjoy = 0
 
         print(f"{username} said '{user_message}' ({channel})")
 
