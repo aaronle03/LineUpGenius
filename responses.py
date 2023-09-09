@@ -1,14 +1,10 @@
 from server import *
 
-def handle_map(mapName, characterName) -> str:
-    gif_link = get_gif(mapName, characterName)
-    gif_strings = list(gif_link)
-    if gif_strings:
-        return "\n".join(gif_strings)
-    else:
-        return "No matching items found"
+def handle_map(mapName, characterName) -> list:
+    gif_links = get_gif(mapName, characterName)
+    return gif_links
 
-def handle_response(message) -> str:
+def handle_response(message) -> list:
     p_message = message.lower()
     myList = p_message.split()
 
@@ -16,20 +12,13 @@ def handle_response(message) -> str:
         return "`!help - Shows all commands\n!mapName characterName - Type a map name then a character name (i.e. !ascent brimstone)`"
     
     if p_message == 'ben':
-        return ""
+        return "https://www.youtube.com/watch?v=1hGcAUVfVZ8"
 
-    if(len(myList) == 2):
-        if(myList[1] == 'brimstone'):
-            word = handle_map(myList[0], myList[1])
-            return word
-        elif(myList[1] == 'viper'):
-            return handle_map(myList[0], myList[1])
-        elif(myList[1] == 'killjoy'):
-            return handle_map(myList[0], myList[1])
-        elif(myList[1] == 'sova'):
+    if len(myList) == 2:
+        if myList[1] in ['brimstone', 'viper', 'killjoy', 'sova']:
             return handle_map(myList[0], myList[1])
         else:
-            return "You didn't enter a valid command. Type !help for the list of commands!"
+            return ["You didn't enter a valid command. Type !help for the list of commands!"]
 
     else:
         if p_message == 'bad_message':

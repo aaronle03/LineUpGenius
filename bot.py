@@ -1,6 +1,7 @@
 import discord
 import responses
 from credentials import *
+from discord.ext import commands
 
 intents = discord.Intents.all()
 intents.typing = False
@@ -8,8 +9,14 @@ intents.messages = True
 
 async def send_message(message, user_message, is_private):
     try:
-        response = responses.handle_response(user_message)
-        await message.author.send(response) if is_private else await message.channel.send(response)
+        response_list = responses.handle_response(user_message)
+        for response in response_list:
+            if is_private:
+                embed = discord.Embed()
+                embed.set_image(url=response)
+                await message.author.send(embed=embed)
+            else:
+                await message.channel.send(response)
     except Exception as e:
         print(e)
 
